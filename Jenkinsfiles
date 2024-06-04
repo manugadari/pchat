@@ -11,8 +11,7 @@ pipeline {
       steps {
         echo 'Testing...'
         
-          snykSecurity failOnError: false, failOnIssues: false, organisation: 'PYTHON-APP', projectName: 'Python-game', severity: 'high', snykInstallation: 'SNYK', snykTokenId: 'SNYK_API_TOKEN'
-        
+snykSecurity failOnError: false, organisation: 'PYTHON-APP', projectName: 'Python-game', severity: 'medium', snykInstallation: 'SNYK', snykTokenId: 'SNYK_API_TOKEN'        
       }
     }
     stage('Deploy') {
