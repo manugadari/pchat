@@ -4,20 +4,8 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        echo 'Building...'
-      }
-    }
-    stage('Test') {
-      steps {
-        echo 'Testing...'
-        
-          snykSecurity failOnError: false, failOnIssues: false, organisation: 'PYTHON-APP', projectName: 'Python-game', severity: 'high', snykInstallation: 'SNYK', snykTokenId: 'SNYK_API_TOKEN'
-        
-      }
-    }
-    stage('Deploy') {
-      steps {
-        echo 'Deploying...'
+        git 'https://github.com/manugadari/pchat'
+        sh'git diff master feature-1'
       }
     }
   }
