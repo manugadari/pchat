@@ -20,8 +20,8 @@ pipeline {
 
         stage('SAST SCAN') {
             steps {
-                sh 'snyk code test changes'{
+                sh 'snyk code test changes'
                 }
             }
-  }
+     }
 }
