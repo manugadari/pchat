@@ -4,7 +4,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        git 'https://github.com/manugadari/pchat'
+        sh 'git clone https://github.com/manugadari/pchat'
         sh'git branch'
       }
     }
