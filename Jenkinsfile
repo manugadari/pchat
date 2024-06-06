@@ -18,10 +18,16 @@ pipeline {
              }
           }
 
-        stage('SAST SCAN') {
+        stage('SAST SCAN for modified files') {
             steps {
                 sh 'snyk code test changes.py'
                 }
             }
+    
+        stage('SAST SCAN for all files') {
+            steps {
+                sh 'snyk code test '
+                }
+          }
      }
 }
