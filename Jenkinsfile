@@ -24,9 +24,9 @@ pipeline {
                 }
             }
     
-        stage('SAST SCAN for all files') {
+        stage('SCA SCAN') {
             steps {
-                sh 'snyk code test '
+                sh 'snyk test '
                 }
           }
      }
