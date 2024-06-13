@@ -7,7 +7,7 @@ pipeline {
         git 'https://github.com/manugadari/pchat'
         git branch: 'feature-1', url: 'https://github.com/manugadari/pchat'
         sh'git checkout feature-1'
-        sh'git diff --name-only master main '
+        sh'git diff --name-only master feature-1 '
       }
     } 
     stage('Authorize Snyk CLI') {
