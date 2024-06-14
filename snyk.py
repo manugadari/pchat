@@ -3,7 +3,6 @@ import subprocess
 import json
 import argparse
 import logging
-import git
 from git import Repo
 import sys
 import time
