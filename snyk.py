@@ -12,8 +12,9 @@ logging.basicConfig(level=logging.INFO, format='[%(levelname)s] - %(message)s')
 logger = logging.getLogger(__name__)
 
 class SnykScanner:
-     @staticmethod
-     def check_snyk_installed():
+    
+    @staticmethod
+    def check_snyk_installed():
         """
         Check if Snyk CLI is installed.
         """
@@ -25,8 +26,8 @@ class SnykScanner:
             logger.error("Snyk CLI is not installed. Please install it from https://snyk.io/docs/snyk-cli-installation/")
             raise
 
-     @staticmethod
-     def check_snyk_token():
+    @staticmethod
+    def check_snyk_token():
         """
         Check auth token from environment variable.
         """
