@@ -43,9 +43,9 @@ class SnykScanner:
              logger.error(f"Failed to authenticate to Snyk: {e}")
              raise
 
-    def trigger_sast_scan():
+    def trigger_sast_scan(project_path=None):
         try:
-          
+            
             # Scan the entire project
             command = ['snyk', 'code', 'test', "--org=24f6a625-a8fe-42dc-b991-48ad1ce96064", '--json']
             result = subprocess.run(command, capture_output=True, text=True)
@@ -210,7 +210,7 @@ def main():
         return
 
     try:
-        SnykScanner.trigger_sast_scan( )
+        SnykScanner.trigger_sast_scan(project_path=project_path)
     except ValueError as e:
         logger.error(f"scan failed: {e}")
         return
