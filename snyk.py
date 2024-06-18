@@ -257,6 +257,8 @@ def main():
             scanner.save_results_to_json(scan_summary, scan_summary_file_path)
             if not scanner.evaluate_severity_summary(severity_summary):
                 sys.exit(1)  # Fail pipeline
+    else:
+      logger.info("else block")
 
     if args.scan_for_pr:
         logger.info("3rdline")
