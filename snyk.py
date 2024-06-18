@@ -231,7 +231,13 @@ def main():
         logger.error(f"Authentication failed: {e}")
         return
 
-    scanner = SnykScanner()
+    try:
+        SnykScanner.trigger_sast_scan()
+    except ValueError as e:
+        logger.error(f"scan failed: {e}")
+        return
+
+    scanner = SnykScanner()   
     execution_time = 0
   
     if args.scan_for_push:
