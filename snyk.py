@@ -39,6 +39,7 @@ class SnykScanner:
         # except subprocess.CalledProcessError as e:
         #     logger.error(f"Failed to authenticate to Snyk: {e}")
         #     raise
+
     def trigger_sast_scan(self, target, project_name=None, target_name=None):
         """
         Trigger SAST scan using Snyk CLI.
