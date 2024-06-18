@@ -189,6 +189,8 @@ def load_config(config_file):
         raise
 
 def main():
+    logger.info("Logging started")  
+ 
     if not os.path.exists("outputs"):
         os.mkdir("outputs")
     scan_summary_file_path = './outputs/severity_summary.json'
