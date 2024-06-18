@@ -277,4 +277,3 @@ def main():
   
 if __name__ == "__main__":
   check_snyk_token()
-    main()
