@@ -43,7 +43,7 @@ class SnykScanner:
              logger.error(f"Failed to authenticate to Snyk: {e}")
              raise
 
-    def trigger_sast_scan(project_path=None):
+    def trigger_sast_scan():
         try:
             
             # Scan the entire project
@@ -60,8 +60,9 @@ class SnykScanner:
                 logger.error("CLI scan failed. No supported projects detected.")
             else:
                 logger.error(f"CLI scan failed with unexpected error code: {result.returncode}")
-            scan_results = json.loads(result.stdout)
+            scan_results = json.loads(result.stdout) #print scanned results
             logger.info(f"scan result:{scan_results}")
+            return scan_results
         except Exception as e:
             logger.error(f"Error: {e}")
             return []
@@ -210,10 +211,17 @@ def main():
         return
 
     try:
-        SnykScanner.trigger_sast_scan(project_path=project_path)
+        scan_results=SnykScanner.trigger_sast_scan()
+        severity_counts=summarize_severities(scan_results)
+        logger.info(f"severity count= ",severity_counts)
     except ValueError as e:
         logger.error(f"scan failed: {e}")
         return
+    # try:
+    #     SnykScanner.get_changed_files()
+    # except ValueError as e:
+    #     logger.error(f"scan failed: {e}")
+    #     return
 
     scanner = SnykScanner()   
     execution_time = 0
