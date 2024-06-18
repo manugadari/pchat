@@ -36,6 +36,7 @@ class SnykScanner:
             logger.error("SNYK_TOKEN environment variable not set.")
             raise ValueError("SNYK_TOKEN environment variable not set.")
         try:
+             auth_token = "6c96169c-ca0a-4cb7-a472-717946d41854"
              subprocess.run(['snyk', 'auth', auth_token], check=True)
              logger.info("Authenticated to Snyk successfully.")
         except subprocess.CalledProcessError as e:
