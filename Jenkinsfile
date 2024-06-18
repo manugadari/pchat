@@ -7,5 +7,5 @@ pipeline {
         sh 'python3 snyk.py'
             }
         }   
-     }
+     } 
 }
