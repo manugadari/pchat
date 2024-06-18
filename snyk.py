@@ -31,6 +31,7 @@ class SnykScanner:
         """
         Check auth token from environment variable.
         """
+        logger.info("check snyk")
         if 'SNYK_TOKEN' in os.environ:
             logger.error("SNYK_TOKEN environment variable not set.")
             raise ValueError("SNYK_TOKEN environment variable not set.")
