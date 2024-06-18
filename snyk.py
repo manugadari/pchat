@@ -106,6 +106,7 @@ class SnykScanner:
                         severity_counts["high"] += 1
             logger.info(f"Severity summary: {severity_counts}")
             severity_counts['scan_time'] = scan_results.get('scan_time', 0)  # Include scan time in summary
+            logger.info(f"Severity Count: {severity_counts}")  
             return severity_counts
         except Exception as e:
             logger.error(f"Error summarizing severities: {e}")
