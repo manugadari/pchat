@@ -12,6 +12,19 @@ logging.basicConfig(level=logging.INFO, format='[%(levelname)s] - %(message)s')
 logger = logging.getLogger(__name__)
 
 class SnykScanner:
+     @staticmethod
+    def check_snyk_installed():
+        """
+        Check if Snyk CLI is installed.
+        """
+        try:
+            result = subprocess.run(['snyk', '--version'], capture_output=True, text=True)
+            result.check_returncode()
+            logger.info(f"Snyk CLI is installed: {result.stdout.strip()}")
+        except subprocess.CalledProcessError:
+            logger.error("Snyk CLI is not installed. Please install it from https://snyk.io/docs/snyk-cli-installation/")
+            raise
+
     @staticmethod
     def check_snyk_token():
         """
@@ -195,9 +208,14 @@ def main():
     project_path = config.get('project_path')
     org_id = config.get('org_id')
     project_id = config.get('project_id')
-
-
     
+    # Check if Snyk CLI is installed
+    try:
+        SnykScanner.check_snyk_installed()
+    except Exception as e:
+        logger.error(f"Snyk CLI check failed: {e}")
+        return
+
     # Authenticate to Snyk
     try:
         SnykScanner.check_snyk_token()
