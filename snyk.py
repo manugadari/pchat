@@ -106,7 +106,7 @@ class SnykScanner:
                         severity_counts["high"] += 1
             logger.info(f"Severity summary: {severity_counts}")
             severity_counts['scan_time'] = scan_results.get('scan_time', 0)  # Include scan time in summary
-            logger.info(f"Severity Count: {severity_counts}")  
+            #logger.info(f"Severity Count: {severity_counts}")  
             return severity_counts
         except Exception as e:
             logger.error(f"Error summarizing severities: {e}")
@@ -214,15 +214,15 @@ def main():
     try:
         scan_results=SnykScanner.trigger_sast_scan()
         severity_counts=SnykScanner.summarize_severities(scan_results)
-        logger.info(f"severity count= ",severity_counts)
+        #logger.info(f"severity count= ",severity_counts)
     except ValueError as e:
         logger.error(f"scan failed: {e}")
         return
-    # try:
-    #     SnykScanner.get_changed_files()
-    # except ValueError as e:
-    #     logger.error(f"scan failed: {e}")
-    #     return
+    try:
+        changed_files=SnykScanner.get_changed_files("https://github.com/manugadari/pchat","master","feature-1")
+    except ValueError as e:
+        logger.error(f"scan failed: {e}")
+        return
 
     scanner = SnykScanner()   
     execution_time = 0
