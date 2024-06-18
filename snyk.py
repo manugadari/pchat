@@ -276,4 +276,4 @@ def main():
                 logger.info("No changed files found to scan")
   
 if __name__ == "__main__":
-  check_snyk_token()
+  main()
