@@ -208,12 +208,12 @@ def main():
     args = parser.parse_args()
     config = load_config("config.json") # file path
 
-    # project_path = config.get('project_path')
-    # org_id = config.get('org_id')
-    # project_id = config.get('project_id')
+     project_path = config.get('project_path')
+     org_id = config.get('org_id')
+ 
     project_path="/org/devsecops-8asL59pQsbCWMkzKan4nwA"
     org_id="24f6a625-a8fe-42dc-b991-48ad1ce96064"
-    project_id=""
+    
     # Check if Snyk CLI is installed
     try:
         SnykScanner.check_snyk_installed()
