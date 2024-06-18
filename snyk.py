@@ -190,7 +190,6 @@ def load_config(config_file):
 
 def main():
     logger.info("Logging started")  
- 
     if not os.path.exists("outputs"):
         os.mkdir("outputs")
     scan_summary_file_path = './outputs/severity_summary.json'
@@ -207,19 +206,74 @@ def main():
     parser.add_argument('--repo-path', default="./", help="Path to the Git repository")
 
     args = parser.parse_args()
-    config = load_config("config.json")
+    config = load_config("config.json") # file path
 
-    project_path = config.get('project_path')
-    org_id = config.get('org_id')
-    project_id = config.get('project_id')
+    # project_path = config.get('project_path')
+    # org_id = config.get('org_id')
+    # project_id = config.get('project_id')
+    project_path="/org/devsecops-8asL59pQsbCWMkzKan4nwA"
+    org_id="24f6a625-a8fe-42dc-b991-48ad1ce96064"
+    project_id=""
+    # Check if Snyk CLI is installed
+    try:
+        SnykScanner.check_snyk_installed()
+    except Exception as e:
+        logger.error(f"Snyk CLI check failed: {e}")
+        return
     
-
     # Authenticate to Snyk
     try:
         SnykScanner.check_snyk_token()
     except ValueError as e:
         logger.error(f"Authentication failed: {e}")
         return
+
+    scanner = SnykScanner()
+    execution_time = 0
+    if args.scan_for_push:
+        if not args.report:
+            start_time = time.time()
+            scan_results = scanner.trigger_sast_scan(project_path=project_path)
+            end_time = time.time()
+            execution_time = end_time - start_time
+            logger.info(f"Snyk scan execution time: {execution_time:.2f} seconds")
+        else:
+            start_time = time.time()
+            scan_results= scanner.trigger_sast_scan(project_path=project_path) #, target_name=target_name)  
+            end_time = time.time()
+            execution_time = end_time - start_time
+            logger.info(f"Snyk scan execution time: {execution_time:.2f} seconds") 
+        if scan_results:
+            severity_summary = scanner.summarize_severities(scan_results)
+            scan_summary = {"execution_time": execution_time, "summary": severity_summary}
+            scanner.save_results_to_json(scan_results, scan_json_file_path)
+            scanner.convert_json_to_html(scan_json_file_path, scan_html_file_path)
+            scanner.save_results_to_json(scan_summary, scan_summary_file_path)
+            if not scanner.evaluate_severity_summary(severity_summary):
+                sys.exit(1)  # Fail pipeline
+
+    if args.scan_for_pr:
+        if not args.repo_path or not args.base_branch or not args.pr_branch:
+            logger.error("Base branch and PR branch are required for scanning a Pull Request.")
+            sys.exit(1)
+        changed_files = scanner.get_changed_files(args.repo_path, args.base_branch, args.pr_branch)
+        logger.info(f"Changed Files {changed_files}")
+        if changed_files:
+            start_time = time.time()
+            scan_results = scanner.trigger_sast_scan(changed_files)
+            end_time = time.time()
+            execution_time = end_time - start_time
+            logger.info(f"Snyk scan execution time: {execution_time:.2f} seconds") 
+        if scan_results:
+            severity_summary = scanner.summarize_severities(scan_results)
+            scan_summary = {"execution_time": execution_time, "summary": severity_summary}
+            scanner.save_results_to_json(scan_results, scan_json_file_path)
+            scanner.convert_json_to_html(scan_json_file_path, scan_html_file_path)
+            scanner.save_results_to_json(scan_summary, scan_summary_file_path)
+            if not scanner.evaluate_severity_summary(severity_summary):
+                sys.exit(1)  # Fail pipeline
+            else:
+                logger.info("No changed files found to scan")
   
 if __name__ == "__main__":
     main()
