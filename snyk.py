@@ -12,6 +12,33 @@ logging.basicConfig(level=logging.INFO, format='[%(levelname)s] - %(message)s')
 logger = logging.getLogger(__name__)
 
 class SnykScanner:
+    @staticmethod
+    def check_snyk_installed():
+        """
+        Check if Snyk CLI is installed.
+        """
+        try:
+            result = subprocess.run(['snyk', '--version'], capture_output=True, text=True)
+            result.check_returncode()
+            logger.info(f"Snyk CLI is installed: {result.stdout.strip()}")
+        except subprocess.CalledProcessError:
+            logger.error("Snyk CLI is not installed. Please install it from https://snyk.io/docs/snyk-cli-installation/")
+            raise
+
+    @staticmethod
+    def check_snyk_token():
+        """
+        Check auth token from environment variable.
+        """
+        if 'SNYK_TOKEN' in os.environ:
+            logger.error("SNYK_TOKEN environment variable not set.")
+            raise ValueError("SNYK_TOKEN environment variable not set.")
+        # try:
+        #     subprocess.run(['snyk', 'auth', auth_token], check=True)
+        #     logger.info("Authenticated to Snyk successfully.")
+        # except subprocess.CalledProcessError as e:
+        #     logger.error(f"Failed to authenticate to Snyk: {e}")
+        #     raise
     def trigger_sast_scan(self, target, project_name=None, target_name=None):
         """
         Trigger SAST scan using Snyk CLI.
