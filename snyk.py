@@ -257,6 +257,7 @@ def main():
                 sys.exit(1)  # Fail pipeline
 
     if args.scan_for_pr:
+        logger.info("3rdline")
         if not args.repo_path or not args.base_branch or not args.pr_branch:
             logger.error("Base branch and PR branch are required for scanning a Pull Request.")
             sys.exit(1)
