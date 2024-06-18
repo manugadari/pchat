@@ -233,9 +233,9 @@ def main():
     scanner = SnykScanner()
     execution_time = 0
     if args.scan_for_push:
-      logger.info("inside first if")
+        logger.info("inside first if")
         if not args.report:
-          logger.info("inside second if")
+            logger.info("inside second if")
             start_time = time.time()
             scan_results = scanner.trigger_sast_scan(project_path=project_path)
             end_time = time.time()
