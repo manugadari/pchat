@@ -212,7 +212,7 @@ def main():
 
     try:
         scan_results=SnykScanner.trigger_sast_scan()
-        severity_counts=summarize_severities(scan_results)
+        severity_counts=SnykScanner.summarize_severities(scan_results)
         logger.info(f"severity count= ",severity_counts)
     except ValueError as e:
         logger.error(f"scan failed: {e}")
