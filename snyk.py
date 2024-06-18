@@ -208,7 +208,7 @@ def main():
     parser.add_argument('--repo-path', default="./", help="Path to the Git repository")
 
     args = parser.parse_args()
-    logger.info("args",args)
+    logger.info(f"args: {args}")
     config = load_config("config.json") # file path
 
     #project_path = config.get('project_path')
