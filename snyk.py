@@ -48,6 +48,9 @@ class SnykScanner:
             if isinstance():
                 # Scan the entire project
                 command = ['snyk', 'code', 'test', "24f6a625-a8fe-42dc-b991-48ad1ce96064", '--json', target]
+        else:
+                raise ValueError("Invalid target for scan. Must be a string (project path) or list (changed files).")
+                logger.info(f"Running Command - {command}")
     def get_changed_files(self, repo_path, base_branch, pr_branch):
         """
         Get the list of changed files between the base branch and PR branch using GitPython.
