@@ -49,7 +49,7 @@ class SnykScanner:
             # Scan the entire project
             command = ['snyk', 'code', 'test', "--org=24f6a625-a8fe-42dc-b991-48ad1ce96064", '--json']
             result = subprocess.run(command, capture_output=True, text=True)
-            logger.info(f" Trigger Snyk: {result}")
+            #logger.info(f" Trigger Snyk: {result}")
             if result.returncode == 0:
                 logger.info("CLI scan completed successfully. No vulnerabilities found.")
             elif result.returncode == 1:
@@ -60,6 +60,8 @@ class SnykScanner:
                 logger.error("CLI scan failed. No supported projects detected.")
             else:
                 logger.error(f"CLI scan failed with unexpected error code: {result.returncode}")
+            scan_results = json.loads(result.stdout)
+            logger.info(f"scan result:{scan_results}")
         except Exception as e:
             logger.error(f"Error: {e}")
             return []
