@@ -43,50 +43,11 @@ class SnykScanner:
              logger.error(f"Failed to authenticate to Snyk: {e}")
              raise
 
-    def trigger_sast_scan(self, target, project_name=None, target_name=None):
-        """
-        Trigger SAST scan using Snyk CLI.
-        :param target: Path to the project or list of changed files to be scanned.
-        :param output_file: Path to save the JSON file output.
-        :return: Scan results in JSON format.
-        """
+    def trigger_sast_scan():
         try:
-            if isinstance(target, str):
+            if isinstance():
                 # Scan the entire project
                 command = ['snyk', 'code', 'test', "24f6a625-a8fe-42dc-b991-48ad1ce96064", '--json', target]
-            elif isinstance(target, list):
-                flag_changed_files = [f"--file={file}" for file in target]
-                command = ['snyk', 'code', 'test', "24f6a625-a8fe-42dc-b991-48ad1ce96064", '--json'] + flag_changed_files
-            if project_name!=None:
-                command.append(f"--report")
-                command.append(f"--project-name={project_name}")
-                if target_name!=None:
-                    command.append(f"--target-name={target_name}")  
-            else:
-                raise ValueError("Invalid target for scan. Must be a string (project path) or list (changed files).")
-            logger.info(f"Running Command - {command}")
-
-            result = subprocess.run(command, capture_output=True, text=True)
-
-            if result.returncode == 0:
-                logger.info("CLI scan completed successfully. No vulnerabilities found.")
-            elif result.returncode == 1:
-                logger.warning("CLI scan completed. Vulnerabilities found.")
-            elif result.returncode == 2:
-                logger.error("CLI scan failed. Failure, try to re-run the command.")
-            elif result.returncode == 3:
-                logger.error("CLI scan failed. No supported projects detected.")
-            else:
-                logger.error(f"CLI scan failed with unexpected error code: {result.returncode}")
-            scan_results = json.loads(result.stdout)
-            return scan_results
-        except subprocess.CalledProcessError as e:
-            logger.error(f"Error running Snyk CLI: {e}")
-            raise
-        except json.JSONDecodeError as e:
-            logger.error(f"Error parsing JSON output: {e}")
-            raise
-
     def get_changed_files(self, repo_path, base_branch, pr_branch):
         """
         Get the list of changed files between the base branch and PR branch using GitPython.
