@@ -232,7 +232,7 @@ def main():
         return
 
     try:
-        SnykScanner.trigger_sast_scan()
+        SnykScanner.trigger_sast_scan(self, pchat )
     except ValueError as e:
         logger.error(f"scan failed: {e}")
         return
