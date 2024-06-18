@@ -213,14 +213,13 @@ def main():
     org_id = config.get('org_id')
     project_id = config.get('project_id')
     
-    # Check if Snyk CLI is installed
-    try:
-        SnykScanner.check_snyk_installed()
-    except Exception as e:
-        logger.error(f"Snyk CLI check failed: {e}")
-        return
 
     # Authenticate to Snyk
+    try:
+        SnykScanner.check_snyk_token()
+    except ValueError as e:
+        logger.error(f"Authentication failed: {e}")
+        return
   
 if __name__ == "__main__":
     main()
