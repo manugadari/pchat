@@ -6,7 +6,7 @@ import logging
 from git import Repo
 import sys
 import time
-
+ 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='[%(levelname)s] - %(message)s')
 logger = logging.getLogger(__name__)
