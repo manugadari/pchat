@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 class SnykScanner:
      @staticmethod
-      def check_snyk_installed():
+     def check_snyk_installed():
         """
         Check if Snyk CLI is installed.
         """
