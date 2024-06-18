@@ -35,12 +35,12 @@ class SnykScanner:
         if 'SNYK_TOKEN' in os.environ:
             logger.error("SNYK_TOKEN environment variable not set.")
             raise ValueError("SNYK_TOKEN environment variable not set.")
-        # try:
-        #     subprocess.run(['snyk', 'auth', auth_token], check=True)
-        #     logger.info("Authenticated to Snyk successfully.")
-        # except subprocess.CalledProcessError as e:
-        #     logger.error(f"Failed to authenticate to Snyk: {e}")
-        #     raise
+         try:
+             subprocess.run(['snyk', 'auth', auth_token], check=True)
+             logger.info("Authenticated to Snyk successfully.")
+         except subprocess.CalledProcessError as e:
+             logger.error(f"Failed to authenticate to Snyk: {e}")
+             raise
 
     def trigger_sast_scan(self, target, project_name=None, target_name=None):
         """
