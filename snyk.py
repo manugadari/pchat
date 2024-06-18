@@ -45,9 +45,11 @@ class SnykScanner:
 
     def trigger_sast_scan():
         try:
-            if isinstance():
-                # Scan the entire project
-                command = ['snyk', 'code', 'test', "24f6a625-a8fe-42dc-b991-48ad1ce96064", '--json', target]
+          
+            # Scan the entire project
+            command = ['snyk', 'code', 'test', "--org=24f6a625-a8fe-42dc-b991-48ad1ce96064", '--json']
+            result = subprocess.run(command, capture_output=True, text=True)
+            logger.info(" Trigger Snyk: {result}")
         except Exception as e:
             logger.error(f"Error: {e}")
             return []
