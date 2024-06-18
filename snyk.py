@@ -146,7 +146,7 @@ class SnykScanner:
 
     @staticmethod
     def convert_json_to_html(json_file, html_file):
-        """
+        """ 
         Convert JSON scan results to HTML using snyk-to-html.
         :param json_file: Path to the JSON file.
         :param html_file: Path to save the HTML file.
