@@ -283,6 +283,8 @@ def main():
                 sys.exit(1)  # Fail pipeline
             else:
                 logger.info("No changed files found to scan")
-  
+    else:
+      logger.info("else block2")
+
 if __name__ == "__main__":
   main()
