@@ -43,7 +43,7 @@ class SnykScanner:
              logger.error(f"Failed to authenticate to Snyk: {e}")
              raise
 
-  def trigger_sast_scan(self, target, project_name=None, target_name=None):
+    def trigger_sast_scan(self, target, project_name=None, target_name=None):
         """
         Trigger SAST scan using Snyk CLI.
         :param target: Path to the project or list of changed files to be scanned.
@@ -233,7 +233,7 @@ def main():
         return
 
     try:
-        scan_results=SnykScanner.trigger_sast_scan(self, . , project_name=None, target_name=None)
+        scan_results=SnykScanner.trigger_sast_scan()
         severity_counts=SnykScanner.summarize_severities(scan_results)
         #logger.info(f"severity count= ",severity_counts)
     except ValueError as e:
@@ -253,7 +253,7 @@ def main():
         if not args.report:
             logger.info("inside second if")
             start_time = time.time()
-            scan_results = scanner.trigger_sast_scan(project_path=project_path)
+            scan_results = scanner.trigger_sast_scan(target= https://github.com/manugadari/pchat)
             end_time = time.time()
             execution_time = end_time - start_time
             logger.info(f"Snyk scan execution time: {execution_time:.2f} seconds")
