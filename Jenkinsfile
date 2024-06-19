@@ -10,7 +10,7 @@ pipeline {
     stage('Build') {
       steps {
         sh "python3 snyk.py " +
-           "--repo-path https://github.com/manugadari/pchat"
+           "--scan-for-push"
       }
     }
   }
