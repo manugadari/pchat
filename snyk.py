@@ -233,7 +233,7 @@ def main():
     if args.scan_for_push:
         if not args.report:
             start_time = time.time()
-            scan_results = scanner.trigger_sast_scan(project_path=project_path)
+            scan_results = scanner.trigger_sast_scan(target='/var/lib/jenkins/workspace/snyk shell')
             end_time = time.time()
             execution_time = end_time - start_time
             logger.info(f"Snyk scan execution time: {execution_time:.2f} seconds")
