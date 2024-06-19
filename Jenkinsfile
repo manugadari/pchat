@@ -4,7 +4,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'python3 snyk.py'
+        sh 'python3 snyk.py --scan-for-push'
             }
         }   
      } 
