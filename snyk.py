@@ -233,13 +233,6 @@ def main():
         return
 
     try:
-        scan_results=SnykScanner.trigger_sast_scan()
-        severity_counts=SnykScanner.summarize_severities(scan_results)
-        #logger.info(f"severity count= ",severity_counts)
-    except ValueError as e:
-        logger.error(f"scan failed: {e}")
-        return
-    try:
         changed_files=SnykScanner.get_changed_files("https://github.com/manugadari/pchat.git","master","feature-1")
     except ValueError as e:
         logger.error(f"scan failed: {e}")
