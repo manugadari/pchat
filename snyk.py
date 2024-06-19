@@ -69,6 +69,7 @@ class SnykScanner:
             logger.info(f"Running Command - {command}")
 
             result = subprocess.run(command, capture_output=True, text=True)
+            logger.info(f" result:{result}")
 
             if result.returncode == 0:
                 logger.info("CLI scan completed successfully. No vulnerabilities found.")
