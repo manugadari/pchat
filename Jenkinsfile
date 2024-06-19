@@ -1,7 +1,12 @@
 pipeline {
   agent any
 
-  stages {
+    stages {
+    stage('Build') {
+      steps {
+        git 'https://github.com/manugadari/pchat'
+      }
+    }
     stage('Build') {
       steps {
         sh "python3 snyk.py " +
