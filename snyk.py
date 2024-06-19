@@ -241,7 +241,7 @@ def main():
         if not args.report:
             logger.info("inside second if")
             start_time = time.time()
-            scan_results = scanner.trigger_sast_scan(target= "https://github.com/manugadari/pchat")
+            scan_results = scanner.trigger_sast_scan(target= "./")
             end_time = time.time()
             execution_time = end_time - start_time
             logger.info(f"Snyk scan execution time: {execution_time:.2f} seconds")
