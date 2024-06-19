@@ -49,6 +49,7 @@ class SnykScanner:
         :return: Scan results in JSON format.
         """
         try:
+            logger.info(f"type: {type(target)}")
             if isinstance(target, str):
                 # Scan the entire project
                 command = ['snyk', 'code', 'test', "--org=6e30eb6a-e7c5-482d-ae49-9b8507235700", '--json', target]
