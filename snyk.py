@@ -51,6 +51,7 @@ class SnykScanner:
         try:
             logger.info(f"type: {type(target)}")
             if isinstance(target, str):
+                logger.info("check")
                 # Scan the entire project
                 command = ['snyk', 'code', 'test', "--org=6e30eb6a-e7c5-482d-ae49-9b8507235700", '--json', target]
             elif isinstance(target, list):
