@@ -238,7 +238,7 @@ def main():
             start_time = time.time()
             target="/var/lib/jenkins/workspace/snyk shell"
             logger.info(f"type: {isinstance(target,str)}")
-            scan_results = scanner.trigger_sast_scan(target)
+            scan_results = scanner.trigger_sast_scan(target, "pchat")
             end_time = time.time()
             execution_time = end_time - start_time
             logger.info(f"Snyk scan execution time: {execution_time:.2f} seconds")
