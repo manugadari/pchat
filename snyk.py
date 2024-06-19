@@ -232,11 +232,6 @@ def main():
         logger.error(f"Authentication failed: {e}")
         return
 
-    try:
-        changed_files=SnykScanner.get_changed_files("https://github.com/manugadari/pchat.git","master","feature-1")
-    except ValueError as e:
-        logger.error(f"scan failed: {e}")
-        return
 
     scanner = SnykScanner()   
     execution_time = 0
