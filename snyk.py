@@ -6,7 +6,7 @@ import logging
 from git import Repo
 import sys
 import time
-  
+
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='[%(levelname)s] - %(message)s')
 logger = logging.getLogger(__name__)
@@ -31,17 +31,15 @@ class SnykScanner:
         """
         Check auth token from environment variable.
         """
-        logger.info("check snyk")
         if 'SNYK_TOKEN' in os.environ:
             logger.error("SNYK_TOKEN environment variable not set.")
             raise ValueError("SNYK_TOKEN environment variable not set.")
-        try:
-             auth_token = "6c96169c-ca0a-4cb7-a472-717946d41854"
-             subprocess.run(['snyk', 'auth', auth_token], check=True)
-             logger.info("Authenticated to Snyk successfully.")
-        except subprocess.CalledProcessError as e:
-             logger.error(f"Failed to authenticate to Snyk: {e}")
-             raise
+        # try:
+        #     subprocess.run(['snyk', 'auth', auth_token], check=True)
+        #     logger.info("Authenticated to Snyk successfully.")
+        # except subprocess.CalledProcessError as e:
+        #     logger.error(f"Failed to authenticate to Snyk: {e}")
+        #     raise
 
     def trigger_sast_scan(self, target, project_name=None, target_name=None):
         """
@@ -53,10 +51,10 @@ class SnykScanner:
         try:
             if isinstance(target, str):
                 # Scan the entire project
-                command = ['snyk', 'code', 'test', "--org=24f6a625-a8fe-42dc-b991-48ad1ce96064", '--json', target]
+                command = ['snyk', 'code', 'test', "--org=6e30eb6a-e7c5-482d-ae49-9b8507235700", '--json', target]
             elif isinstance(target, list):
                 flag_changed_files = [f"--file={file}" for file in target]
-                command = ['snyk', 'code', 'test', "--org=24f6a625-a8fe-42dc-b991-48ad1ce96064", '--json'] + flag_changed_files
+                command = ['snyk', 'code', 'test', "--org=6e30eb6a-e7c5-482d-ae49-9b8507235700", '--json'] + flag_changed_files
             if project_name!=None:
                 command.append(f"--report")
                 command.append(f"--project-name={project_name}")
@@ -86,7 +84,8 @@ class SnykScanner:
         except json.JSONDecodeError as e:
             logger.error(f"Error parsing JSON output: {e}")
             raise
-    def get_changed_files(repo_path, base_branch, pr_branch):
+
+    def get_changed_files(self, repo_path, base_branch, pr_branch):
         """
         Get the list of changed files between the base branch and PR branch using GitPython.
         :param repo_path: Path to the Git repository.
@@ -126,7 +125,6 @@ class SnykScanner:
                         severity_counts["high"] += 1
             logger.info(f"Severity summary: {severity_counts}")
             severity_counts['scan_time'] = scan_results.get('scan_time', 0)  # Include scan time in summary
-            #logger.info(f"Severity Count: {severity_counts}")  
             return severity_counts
         except Exception as e:
             logger.error(f"Error summarizing severities: {e}")
@@ -148,7 +146,7 @@ class SnykScanner:
 
     @staticmethod
     def convert_json_to_html(json_file, html_file):
-        """ 
+        """
         Convert JSON scan results to HTML using snyk-to-html.
         :param json_file: Path to the JSON file.
         :param html_file: Path to save the HTML file.
@@ -208,16 +206,14 @@ def main():
     parser.add_argument('--repo-path', default="./", help="Path to the Git repository")
 
     args = parser.parse_args()
-    logger.info(f"args: {args}")
     config = load_config("config.json") # file path
 
-    project_path = config.get('project_path')
-    org_id = config.get('org_id')
-    project_id = config.get('project_id')
- 
-    #project_path="/org/devsecops-8asL59pQsbCWMkzKan4nwA"
-    #org_id="24f6a625-a8fe-42dc-b991-48ad1ce96064"
-    
+    # project_path = config.get('project_path')
+    # org_id = config.get('org_id')
+    # project_id = config.get('project_id')
+    project_path="/org/devsecops-8asL59pQsbCWMkzKan4nwA"
+    org_id="24f6a625-a8fe-42dc-b991-48ad1ce96064"
+    project_id=""
     # Check if Snyk CLI is installed
     try:
         SnykScanner.check_snyk_installed()
@@ -232,14 +228,10 @@ def main():
         logger.error(f"Authentication failed: {e}")
         return
 
-
-    scanner = SnykScanner()   
+    scanner = SnykScanner()
     execution_time = 0
-  
     if args.scan_for_push:
-        logger.info("inside first if")
         if not args.report:
-            logger.info("inside second if")
             start_time = time.time()
             scan_results = scanner.trigger_sast_scan(project_path=project_path)
             end_time = time.time()
@@ -259,11 +251,8 @@ def main():
             scanner.save_results_to_json(scan_summary, scan_summary_file_path)
             if not scanner.evaluate_severity_summary(severity_summary):
                 sys.exit(1)  # Fail pipeline
-    else:
-      logger.info("else block")
 
     if args.scan_for_pr:
-        logger.info("3rdline")
         if not args.repo_path or not args.base_branch or not args.pr_branch:
             logger.error("Base branch and PR branch are required for scanning a Pull Request.")
             sys.exit(1)
@@ -285,8 +274,5 @@ def main():
                 sys.exit(1)  # Fail pipeline
             else:
                 logger.info("No changed files found to scan")
-    else:
-      logger.info("else block2")
-
 if __name__ == "__main__":
-  main()
+    main()
