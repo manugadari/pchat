@@ -26,20 +26,22 @@ class SnykScanner:
             logger.error("Snyk CLI is not installed. Please install it from https://snyk.io/docs/snyk-cli-installation/")
             raise
 
-    @staticmethod
+   @staticmethod
     def check_snyk_token():
         """
         Check auth token from environment variable.
         """
+        logger.info("check snyk")
         if 'SNYK_TOKEN' in os.environ:
             logger.error("SNYK_TOKEN environment variable not set.")
             raise ValueError("SNYK_TOKEN environment variable not set.")
-        # try:
-        #     subprocess.run(['snyk', 'auth', auth_token], check=True)
-        #     logger.info("Authenticated to Snyk successfully.")
-        # except subprocess.CalledProcessError as e:
-        #     logger.error(f"Failed to authenticate to Snyk: {e}")
-        #     raise
+        try:
+             auth_token = "6c96169c-ca0a-4cb7-a472-717946d41854"
+             subprocess.run(['snyk', 'auth', auth_token], check=True)
+             logger.info("Authenticated to Snyk successfully.")
+        except subprocess.CalledProcessError as e:
+             logger.error(f"Failed to authenticate to Snyk: {e}")
+             raise
 
     def trigger_sast_scan(self, target, project_name=None, target_name=None):
         """
@@ -53,7 +55,7 @@ class SnykScanner:
             if isinstance(target, str):
                 logger.info("check")
                 # Scan the entire project
-                command = ['snyk', 'code', 'test', "--org=6e30eb6a-e7c5-482d-ae49-9b8507235700", '--json', target]
+                command = ['snyk', 'code', 'test', "--org=24f6a625-a8fe-42dc-b991-48ad1ce96064", '--json', target]
             elif isinstance(target, list):
                 flag_changed_files = [f"--file={file}" for file in target]
                 command = ['snyk', 'code', 'test', "--org=6e30eb6a-e7c5-482d-ae49-9b8507235700", '--json'] + flag_changed_files
