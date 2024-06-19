@@ -235,6 +235,7 @@ def main():
         if not args.report:
             start_time = time.time()
             target="/var/lib/jenkins/workspace/snyk shell"
+            logger.info(f"type: {type(target)}")
             scan_results = scanner.trigger_sast_scan(target)
             end_time = time.time()
             execution_time = end_time - start_time
