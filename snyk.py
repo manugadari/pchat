@@ -271,6 +271,7 @@ def main():
             sys.exit(1)
         changed_files = scanner.get_changed_files(args.repo_path, args.base_branch, args.pr_branch)
         logger.info(f"Changed Files {changed_files}")
+        logger.info(f"count of changed files: {len(changed_files)}")
         if changed_files:
             start_time = time.time()
             scan_results = scanner.trigger_sast_scan(changed_files)
