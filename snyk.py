@@ -58,7 +58,7 @@ class SnykScanner:
                 command = ['snyk', 'code', 'test','--json', target]
             elif isinstance(target, list):
                 flag_changed_files = [f"--file={file}" for file in target]
-                command = ['snyk', 'code', 'test', "--org=24f6a625-a8fe-42dc-b991-48ad1ce96064", '--json'] + flag_changed_files
+                command = ['snyk', 'code', 'test', '--json'] + flag_changed_files
             if project_name!=None:
                 command.append(f"--report")
                 command.append(f"--project-name={project_name}")
