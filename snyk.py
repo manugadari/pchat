@@ -175,6 +175,7 @@ class SnykScanner:
         :param severity_summary: Severity summary dictionary.
         :return: Boolean indicating whether pipeline should pass or fail.
         """
+        logger.info("evaluate_severity Check")
         if severity_summary.get('high', 0) > 0:
             logger.error("High severity issues found. Pipeline will fail.")
             return False
