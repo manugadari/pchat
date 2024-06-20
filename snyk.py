@@ -164,6 +164,14 @@ class SnykScanner:
             logger.info(f"json_file: {json_file}")
             logger.info(f" html_file: {html_file}")
             result = subprocess.run(['snyk-to-html', '-i', json_file, '-a'], capture_output=True, text=True)
+            if result.returncode == 0:
+                print("Command executed successfully.")
+                print("Output HTML content:")
+                print(result.stdout)  # Print the captured standard output (HTML content)
+            else:
+                print("Command failed with return code:", result.returncode)
+                print("Error output:")
+                print(result.stderr) 
             result.check_returncode()
             logger.info(f"Converted JSON results to HTML file at {html_file}")
         except subprocess.CalledProcessError as e:
