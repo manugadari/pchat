@@ -10,7 +10,7 @@ pipeline {
     stage('Build') {
       steps {
         sh "python3 snyk.py " +
-            "--scan-for-pr"
+            "--scan-for-push"
       }
     }
       stage('changed files') {
