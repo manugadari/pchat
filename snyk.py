@@ -99,17 +99,22 @@ class SnykScanner:
         :return: List of changed files.
         """
         try:
-            logger.info("inside get changed files method")
-            repo = Repo(repo_path)
-            base_commit = repo.commit(base_branch)
-            pr_commit = repo.commit(pr_branch)
-            changed_files = [item.a_path for item in base_commit.diff(pr_commit)]
-            logger.info(f"Found {len(changed_files)} changed files between {base_branch} and {pr_branch}.")
-            logger.info("Changed Files:\n", changed_files)
-            return changed_files
-        except Exception as e:
-            logger.error(f"Error getting changed files: {e}")
-            return []
+        repo = Repo(repo_path)
+        g = git.Git(repo_path)
+
+        # Fetch the latest changes from the remote
+        g.fetch('--all')
+
+        # Get the commit hashes for the base and PR branches
+        base_commit = repo.commit(f'origin/{master}')
+        pr_commit = repo.commit(f'origin/{feature-1}')
+
+        # Get the list of changed files between the two branches
+
+        return changed_files
+    except Exception as e:
+        logger.error(f"Error getting changed files: {e}")
+        return []
         
     @staticmethod
     def summarize_severities(scan_results):
