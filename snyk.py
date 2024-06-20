@@ -279,6 +279,7 @@ def main():
             execution_time = end_time - start_time
             logger.info(f"Snyk scan execution time: {execution_time:.2f} seconds") 
         if scan_results:
+            logger.info("scanresult check")
             severity_summary = scanner.summarize_severities(scan_results)
             scan_summary = {"execution_time": execution_time, "summary": severity_summary}
             scanner.save_results_to_json(scan_results, scan_json_file_path)
