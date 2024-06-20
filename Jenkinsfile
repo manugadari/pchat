@@ -5,7 +5,7 @@ pipeline {
     stage('checkout') {
       steps {
         git 'https://github.com/manugadari/pchat'
-      }python snyk.py --repo-path /path/to/repo --base-branch main --pr-branch feature/new-feature
+      }
     }
     stage('Build') {
       steps {
