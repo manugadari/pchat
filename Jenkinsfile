@@ -17,7 +17,7 @@ pipeline {
         }
     stage('Build') {
       steps {
-        sh 'python3 snyk.py --repo-path "https://github.com/manugadari/pchat" --base-branch "master" --pr-branch "feature-1" --scan-for-pr'                                 
+        sh 'python3 snyk.py --repo-path "https://github.com/manugadari/pchat.git" --base-branch "master" --pr-branch "feature-1" --scan-for-pr'                                 
       }
     }
       stage('changed files') {
