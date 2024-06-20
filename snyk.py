@@ -64,8 +64,8 @@ class SnykScanner:
                 command.append(f"--project-name={project_name}")
                 if target_name!=None:
                     command.append(f"--target-name={target_name}")  
-            else:
-                raise ValueError("Invalid target for scan. Must be a string (project path) or list (changed files).")
+            # else:
+                # raise ValueError("Invalid target for scan. Must be a string (project path) or list (changed files).")
             logger.info(f"Running Command - {command}")
 
             result = subprocess.run(command, capture_output=True, text=True)
