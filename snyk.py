@@ -163,7 +163,7 @@ class SnykScanner:
         try:
             logger.info(f"json_file: {json_file}")
             logger.info(f" html_file: {html_file}")
-            result = subprocess.run([html_file, '-i', json_file, '-a'], capture_output=True, text=True)
+            result = subprocess.run(['snyk-to-html', '-i', json_file, '-a'], capture_output=True, text=True)
             if result.returncode == 0:
                 print("Command executed successfully.")
                 print("Output HTML content:")
