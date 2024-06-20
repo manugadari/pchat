@@ -50,7 +50,7 @@ class SnykScanner:
         :return: Scan results in JSON format.
         """
         try:
-            logger.info(f"type: {type(target)}")
+            #logger.info(f"type: {type(target)}")
             if isinstance(target, str):
                 logger.info("check")
                 # Scan the entire project
@@ -98,10 +98,10 @@ class SnykScanner:
         :return: List of changed files.
         """
         try:
-            logger.info("getting files")
-            logger.info(f"base_branch: {base_branch}")
-            logger.info(f"repo_path: {repo_path}")
-            logger.info(f"pr_branch: {pr_branch}")
+            # logger.info("getting files")
+            # logger.info(f"base_branch: {base_branch}")
+            # logger.info(f"repo_path: {repo_path}")
+            # logger.info(f"pr_branch: {pr_branch}")
             repo = Repo(repo_path)
             base_commit = repo.commit(base_branch)
             pr_commit = repo.commit(pr_branch)
