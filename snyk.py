@@ -161,6 +161,8 @@ class SnykScanner:
         :param html_file: Path to save the HTML file.
         """
         try:
+            logger.info(f"json_file: {json_file}")
+            logger.info(f" html_file: {html_file}")
             result = subprocess.run(['snyk-to-html', '-i', json_file, '-a'], capture_output=True, text=True)
             result.check_returncode()
             logger.info(f"Converted JSON results to HTML file at {html_file}")
