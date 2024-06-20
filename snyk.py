@@ -108,8 +108,8 @@ class SnykScanner:
             logger.info("Changed Files:\n", changed_files)
             return changed_files
     except Exception as e:
-        logger.error(f"Error getting changed files: {e}")
-        return []
+            logger.error(f"Error getting changed files: {e}")
+            return []
         
     @staticmethod
     def summarize_severities(scan_results):
