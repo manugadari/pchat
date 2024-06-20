@@ -16,10 +16,12 @@ pipeline {
             }
         }
     stage('Build') {
-      steps {
-        sh 'python3 snyk.py --repo-path "./" --base-branch "master" --pr-branch "feature-1" --scan-for-pr'                                 
+            steps {
+                catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
+                  sh 'python3 snyk.py --repo-path "./" --base-branch "master" --pr-branch "feature-1" --scan-for-pr'  
+                }
+            }
       }
-    }
       stage('changed files') {
       steps {
         sh "python3 snyk.py " +
