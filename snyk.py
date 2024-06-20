@@ -99,6 +99,7 @@ class SnykScanner:
         :return: List of changed files.
         """
         try:
+            logger.info("getting files")
             repo = Repo(repo_path)
             base_commit = repo.commit(base_branch)
             pr_commit = repo.commit(pr_branch)
