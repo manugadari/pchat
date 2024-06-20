@@ -247,7 +247,7 @@ def main():
             logger.info(f"Snyk scan execution time: {execution_time:.2f} seconds")
         else:
             start_time = time.time()
-            scan_results= scanner.trigger_sast_scan(project_path=project_path) #, target_name=target_name)  
+            scan_results= scanner.trigger_sast_scan(project_path=project_path) #, target_name=target_name)   
             end_time = time.time()
             execution_time = end_time - start_time
             logger.info(f"Snyk scan execution time: {execution_time:.2f} seconds") 
