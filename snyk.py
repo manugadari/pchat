@@ -106,7 +106,7 @@ class SnykScanner:
             changed_files = [item.a_path for item in base_commit.diff(pr_commit)]
             logger.info(f"Found {len(changed_files)} changed files between {base_branch} and {pr_branch}.")
             logger.info("Changed Files:\n", changed_files)
-            return changed_files
+                return changed_files
     except Exception as e:
             logger.error(f"Error getting changed files: {e}")
             return []
