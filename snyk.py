@@ -90,7 +90,7 @@ class SnykScanner:
             logger.error(f"Error parsing JSON output: {e}")
             raise
 
-    def get_changed_files(self, repo_path, base_branch, pr_branch):
+ def get_changed_files(self, repo_path, base_branch, pr_branch):
     """
     Get the list of changed files between the base branch and PR branch using GitPython.
     :param repo_path: Path to the Git repository.
