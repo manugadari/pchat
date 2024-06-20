@@ -5,7 +5,7 @@ pipeline {
     stage('checkout') {
       steps {
         git 'https://github.com/manugadari/pchat'
-        sh 'git checkout feature-1'
+        sh 'git branch'
       }
     }
     stage('Build') {
