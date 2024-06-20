@@ -98,7 +98,7 @@ class SnykScanner:
         :param pr_branch: The PR branch.
         :return: List of changed files.
         """
-        try:
+    try:
         repo = Repo(repo_path)
         g = git.Git(repo_path)
 
