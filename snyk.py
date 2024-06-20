@@ -90,25 +90,25 @@ class SnykScanner:
             logger.error(f"Error parsing JSON output: {e}")
             raise
 
- def get_changed_files(self, repo_path, base_branch, pr_branch):
+    def get_changed_files(self, repo_path, base_branch, pr_branch):
     """
-    Get the list of changed files between the base branch and PR branch using GitPython.
-    :param repo_path: Path to the Git repository.
-    :param base_branch: The base branch of the PR.
-    :param pr_branch: The PR branch.
-    :return: List of changed files.
-    """
-    try:
-        logger.info("inside get changed files method")
-        repo = Repo(repo_path)
-        base_commit = repo.commit(master)
-        pr_commit = repo.commit(feature-1)
-        logger.info(f"Found {len(changed_files)} changed files between {base_branch} and {pr_branch}.")
-        logger.info("Changed Files:\n", changed_files)
-        return changed_files
-    except Exception as e:
-        logger.error(f"Error getting changed files: {e}")
-        return []
+     Get the list of changed files between the base branch and PR branch using GitPython.
+     :param repo_path: Path to the Git repository.
+     :param base_branch: The base branch of the PR.
+     :param pr_branch: The PR branch.
+     :return: List of changed files.
+     """
+     try:
+         logger.info("inside get changed files method")
+         repo = Repo(repo_path)
+         base_commit = repo.commit(master)
+         pr_commit = repo.commit(feature-1)
+         logger.info(f"Found {len(changed_files)} changed files between {base_branch} and {pr_branch}.")
+         logger.info("Changed Files:\n", changed_files)
+         return changed_files
+     except Exception as e:
+         logger.error(f"Error getting changed files: {e}")
+         return []
 
         
     @staticmethod
