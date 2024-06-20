@@ -100,11 +100,11 @@ class SnykScanner:
         """
         try:
             logger.info("getting files")
-            repo = Repo(repo_path)
-            base_commit = repo.commit(base_branch)
             logger.info(f"base_branch: {base_branch}")
             logger.info(f"repo_path: {repo_path}")
             logger.info(f"pr_branch: {pr_branch}")
+            repo = Repo(repo_path)
+            base_commit = repo.commit(base_branch)
             pr_commit = repo.commit(pr_branch)
             changed_files = [item.a_path for item in base_commit.diff(pr_commit)]
             logger.info(f"Found {len(changed_files)} changed files between {base_branch} and {pr_branch}.")
