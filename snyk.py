@@ -296,7 +296,7 @@ def main():
         logger.error(f"Authentication failed: {e}")
         return
 
-    # scanner = SnykScanner()
+    scanner = SnykScanner()
     # execution_time = 0
     # if args.scan_for_push:
     #     if not args.report:
