@@ -27,7 +27,7 @@ class SnykScanner:
             raise
 
     @staticmethod
-    def check_snyk_token():
+    def check_snyk_token(token):
         """
         Check auth token from environment variable.
         """
@@ -36,8 +36,7 @@ class SnykScanner:
             logger.error("SNYK_TOKEN environment variable not set.")
             raise ValueError("SNYK_TOKEN environment variable not set.")
         try:
-             auth_token = "6c96169c-ca0a-4cb7-a472-717946d41854"
-             subprocess.run(['snyk', 'auth', auth_token], check=True)
+             subprocess.run(['snyk', 'auth', token], check=True)
              logger.info("Authenticated to Snyk successfully.")
         except subprocess.CalledProcessError as e:
              logger.error(f"Failed to authenticate to Snyk: {e}")
@@ -232,6 +231,7 @@ def main():
     project_path = config.get('project_path')
     org_id = config.get('org_id')
     project_id = config.get('project_id')
+    token = config.get('auth_token')
     #project_path="/org/devsecops-8asL59pQsbCWMkzKan4nwA"
     #org_id="24f6a625-a8fe-42dc-b991-48ad1ce96064"
     #project_id=""
@@ -244,7 +244,7 @@ def main():
     
     # Authenticate to Snyk
     try:
-        SnykScanner.check_snyk_token()
+        SnykScanner.check_snyk_token(token)
     except ValueError as e:
         logger.error(f"Authentication failed: {e}")
         return
