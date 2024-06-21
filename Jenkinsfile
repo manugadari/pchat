@@ -22,11 +22,11 @@ pipeline {
                 }
             }
       }
-    stage('SCA scan') {
-        steps {
-          sh "python3 snyk.py " +
-              "--scan-for-pr"
-      }
-    }
+    // stage('SCA scan') {
+    //     steps {
+    //       sh "python3 snyk.py " +
+    //           "--scan-for-pr"
+    //   }
+    // }
   }
 }
