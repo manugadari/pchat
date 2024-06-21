@@ -22,7 +22,7 @@ pipeline {
                 }
             }
       }
-    stage('changed files') {
+    stage('SCA scan') {
         steps {
           sh "python3 snyk.py " +
               "--scan-for-pr"
